@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vedant Hondre – Portfolio</title>
+  <meta name="description" content="Personal portfolio – clean, modern, responsive." />
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 1000,
+    once: true
+  });
+
+  // Animate skill meters on load
+  document.querySelectorAll(".meter > span").forEach(el => {
+    el.style.width = "0%";
+    setTimeout(() => {
+      el.style.width = el.getAttribute("style").match(/--val:(\d+%)/)[1];
+    }, 500);
+  });
+</script>
+
+  <style>
+    
+    :root {
+      --bg: #0b0f14;
+      --card: #111827;
+      --muted: #94a3b8;
+      --text: #e5e7eb;
+      --brand: #60a5fa;
+      --brand-2: #a78bfa;
+      --accent: #22d3ee;
+      --ring: rgba(96,165,250,.35);
+      --radius: 1.4rem;
+      --shadow: 0 10px 30px rgba(2,8,23,.35);
+    }
+    * { box-sizing: border-box }
+    html, body { margin: 0; padding: 0; scroll-behavior: smooth; }
+    body { font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: linear-gradient(180deg, #06080d 0%, var(--bg) 100%);
+      color: var(--text);
+    }
+    a { color: inherit; text-decoration: none }
+    img { max-width: 100%; display: block }
+    .container { width: min(1100px, 92%); margin: 0 auto }
+    .nav {
+      position: sticky; top: 0; z-index: 50; backdrop-filter: saturate(160%) blur(10px);
+      background: rgba(11,15,20,.6); border-bottom: 1px solid rgba(148,163,184,.15);
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 0 }
+    .brand { font-weight: 700; letter-spacing: .4px }
+    .chip { padding: 6px 12px; border-radius: 999px; border: 1px solid rgba(148,163,184,.25); color: var(--muted) }
+    .nav-links { display: none; gap: 18px }
+    .nav a:hover { color: white }
+
+    .hero { display: grid; grid-template-columns: 1.2fr .8fr; gap: 28px; align-items: center; padding: 72px 0 40px }
+    .badge { display: inline-grid; grid-auto-flow: column; gap: 8px; align-items: center; font-size: 12px; color: var(--muted);
+      border: 1px solid rgba(148,163,184,.2); border-radius: 999px; padding: 8px 12px }
+    .title { font-size: clamp(28px, 4vw, 48px); line-height: 1.08; margin: 14px 0 10px }
+    .subtitle { color: var(--muted); font-size: clamp(15px, 1.6vw, 18px) }
+    .cta { display: flex; gap: 12px; margin-top: 20px }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 16px; border-radius: 12px; border: 1px solid rgba(148,163,184,.25);
+      background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.00)); color: white; box-shadow: var(--shadow) }
+    .btn.primary { border-color: transparent; background: linear-gradient(90deg, var(--brand), var(--brand-2), var(--accent)) }
+
+    .avatar-card { background: radial-gradient(1200px 500px at -50% -100%, rgba(96,165,250,.2), transparent), var(--card);
+      border: 1px solid rgba(148,163,184,.15); border-radius: var(--radius); padding: 22px; box-shadow: var(--shadow) }
+    .avatar { width: 100%; aspect-ratio: 1/1; border-radius: 20px; background: linear-gradient(135deg, #192134, #0b1222);
+      display: grid; place-items: center; position: relative; overflow: hidden }
+    .avatar svg { width: 50%; opacity: .9 }
+
+    section { padding: 36px 0 }
+    h2.sec-title { font-size: clamp(20px,3.2vw,28px); margin: 0 0 14px }
+    p.sec-sub { color: var(--muted); margin: 0 0 22px }
+
+    .grid { display: grid; gap: 18px }
+    .grid.cols-3 { grid-template-columns: repeat(3,1fr) }
+    .grid.cols-2 { grid-template-columns: repeat(2,1fr) }
+
+    .card { background: var(--card); border: 1px solid rgba(148,163,184,.15); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow) }
+    .card:hover { border-color: rgba(96,165,250,.5) }
+    .tag { font-size: 12px; color: var(--muted); border: 1px solid rgba(148,163,184,.25); padding: 4px 8px; border-radius: 999px }
+
+    .skills { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px }
+    .skill { background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.00)); border: 1px solid rgba(148,163,184,.2);
+      border-radius: 12px; padding: 14px; color: var(--text) }
+    .meter { height: 8px; background: rgba(148,163,184,.2); border-radius: 999px; overflow: hidden; margin-top: 10px }
+    .meter > span { display: block; height: 100%; background: linear-gradient(90deg, var(--brand), var(--brand-2)); width: var(--val,50%) }
+
+    .timeline { border-left: 2px dashed rgba(148,163,184,.3); padding-left: 14px; display: grid; gap: 14px }
+    .t-item { position: relative }
+    .t-item::before { content: ""; position: absolute; left: -11px; top: 4px; width: 10px; height: 10px; border-radius: 999px; background: var(--brand) }
+    .t-h { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 6px }
+    .t-role { font-weight: 600 }
+    .t-time { color: var(--muted); font-size: 12px }
+
+    .projects { grid-template-columns: repeat(3, 1fr) }
+    .p-img { border-radius: 12px; overflow: hidden; border: 1px solid rgba(148,163,184,.15) }
+    .p-title { font-weight: 600; margin: 10px 0 6px }
+    .p-desc { color: var(--muted); font-size: 14px }
+
+    .testimonials { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px }
+    .quote { font-style: italic; color: #cbd5e1 }
+
+    form { display: grid; gap: 12px }
+    input, textarea { background: rgba(255,255,255,.02); color: var(--text); border: 1px solid rgba(148,163,184,.2); padding: 12px 14px; border-radius: 12px; outline: none }
+    input:focus, textarea:focus { border-color: var(--brand); box-shadow: 0 0 0 4px var(--ring) }
+
+    footer { padding: 30px 0 50px; color: var(--muted) }
+
+    .grid-auto-fit { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 18px }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; padding-top: 48px }
+      .nav-links { display: none }
+      .skills { grid-template-columns: repeat(2,1fr) }
+      .projects { grid-template-columns: repeat(2,1fr) }
+      .testimonials { grid-template-columns: 1fr 1fr }
+    }
+    @media (max-width: 620px) {
+      .skills { grid-template-columns: 1fr }
+      .projects { grid-template-columns: 1fr }
+      .testimonials { grid-template-columns: 1fr }
+      .nav-inner { flex-wrap: wrap }
+    }
+  </style>
+</head>
+<body>
+  <!-- ===== NAV ===== -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <div class="brand"> 
+        <span style="display:inline-flex;align-items:center;gap:10px">
+          <span style="display:grid;place-items:center;width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--brand),var(--brand-2));font-weight:800">VH</span>
+          <span>Vedant Hondre</span>
+        </span>
+      </div>
+      <div class="chip">Let’s Build Something Secure</div>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#education">Education</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <header class="container hero">
+    <div>
+      <span class="badge"> <!-- EDIT: Tagline -->
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3l2.39 4.84L20 9.27l-4 3.9.94 5.49L12 16.9l-4.94 1.76L8 13.17l-4-3.9 5.61-1.43L12 3z" stroke="currentColor"/></svg>
+        Jr. Cyber Crime Analyst
+      </span>
+      <h1 class="title"><!-- EDIT: Name & Role -->
+        Hi, I'm <span style="background:linear-gradient(90deg,var(--brand),var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent">Vedant Hondre</span>
+        — Cyber Crime Investigator
+      </h1>
+      <p class="subtitle"> <!-- EDIT: Short Intro (2–3 lines) -->
+        Dedicated Cyber Crime Investigator with experience in handling cases related to cyber fraud, phishing, data theft, and online harassment. Skilled in digital forensics, cyber laws, and modern investigation techniques.
+      </p>
+      <div class="cta">
+        <a class="btn primary" href="#projects">View Projects</a>
+        <a class="btn" href="#" download>Download CV</a>
+      </div>
+    </div>
+    <div class="avatar-card">
+  <div class="avatar" aria-label="vedanthondre.jpg" style="position:relative;">
+    <img src="vedanthondre.jpg" alt="Vedant Hondre" style="width:300px;height:300px;border-radius:50%;object-fit:cover;">
+    
+
+  </div>
+</div>
+
+
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== ABOUT ===== -->
+  <section id="about" class="container">
+    <h2 class="sec-title">About Me</h2>
+    <p class="sec-sub"> <!-- EDIT: About paragraph -->
+     Cyber Crime Investigator – Securing the digital world, one case at a time.
+
+    <div class="grid-auto-fit">
+      <div class="card">
+        <strong>Location</strong><br><!-- EDIT --> Maharashtra, India
+      </div>
+      <div class="card">
+        <strong>Experience</strong><br><!-- EDIT --> 1+ years
+      </div>
+      <div class="card">
+        <strong>Interests</strong><br><!-- EDIT --> OSINT Research, Dark Web, Cyber Security Research</div>
+      <div class="card">
+        <strong>Mission</strong><br><!-- EDIT --> Fighting Cybercrime, Securing Digital Space
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SKILLS ===== -->
+  <section id="skills" class="container">
+    <h2 class="sec-title">Skills</h2>
+    <p class="sec-sub">A mix of technologies and tools I use regularly.</p>
+    <div class="skills">
+      <!-- EDIT: Skill name + value via style="--val:XX%" -->
+      <div class="skill"><strong>Digital Forensics & Evidence Recovery</strong><div class="meter"><span style="--val:92%"></span></div></div>
+      <div class="skill"><strong>CDR & IPDR Analysis</strong><div class="meter"><span style="--val:85%"></span></div></div>
+      <div class="skill"><strong>Evidence Collection & Analysis</strong><div class="meter"><span style="--val:80%"></span></div></div>
+      <div class="skill"><strong>Dark Web Intelligence</strong><div class="meter"><span style="--val:70%"></span></div></div>
+      <div class="skill"><strong>Social Engineering</strong><div class="meter"><span style="--val:88%"></span></div></div>
+      <div class="skill"><strong>Confidential Data Handling</strong><div class="meter"><span style="--val:82%"></span></div></div>
+    </div>
+  </section>
+
+  <!-- ===== PROJECTS ===== -->
+  <section id="projects" class="container">
+    <h2 class="sec-title">Projects</h2>
+    <p class="sec-sub">Cyber Security Project (Internship – Confidential Use)</p>
+    <div class="grid projects">
+      <!-- CARD 1 -->
+      <article class="card">
+        <div class="p-title">CDR Analysis</div>
+        <p class="p-desc">Developed a CDR & IPDR Analysis Tool for cybercrime investigations.</p>
+        <div style="display:flex;gap:8px;align-items:center;margin-top:10px">
+          <span class="tag">IPDR</span><span class="tag">Analysis</span><span class="tag">Filters</span>
+   
+        </div>
+      </article>
+      <!-- CARD 2 -->
+      <article class="card">
+        <div class="p-title">OSINT ToolKit</div>
+        <p class="p-desc">Developed an OSINT Tools Integration Website to assist police in digital investigations.</p>
+        <div style="display:flex;gap:8px;align-items:center;margin-top:10px">
+          <span class="tag">OSINT</span><span class="tag">Investigation</span><span class="tag">Tools</span>
+          
+        </div>
+      </article>
+      <!-- CARD 3 -->
+      <article class="card">   
+        <div class="p-title">Vehicle Information Bot  </div>
+        <p class="p-desc">Developed a vehicle data retrieval bot for investigation support.</p>
+        <div style="display:flex;gap:8px;align-items:center;margin-top:10px">
+          <span class="tag">Verification</span><span class="tag">Tracking</span><span class="tag">Identification</span>
+          
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== EXPERIENCE ===== -->
+  <section id="experience" class="container">
+    <h2 class="sec-title">Experience</h2>
+    <p class="sec-sub">A quick snapshot of roles I've held and what I shipped.</p>
+    <div class="timeline">
+      <!-- EDIT: Duplicate .t-item blocks as needed -->
+      <div class="t-item card">
+        <div class="t-h">
+          <div class="t-role">Cyber Crime Investigation — <span style="color:#cbd5e1">Maharashtra Cyber Cell</span></div>
+          <div class="t-time">April 2025 – Present</div>
+        </div>
+        <ul style="margin:0;padding-left:18px;color:#cbd5e1">
+          <li>Assisted Maharashtra Cyber Cell in fraud tracing and blackmailing case investigations.</li>
+          <li>Developed an OSINT tool to support Maharashtra Cyber Cell in digital investigations..</li>
+        </ul>
+      </div>
+      <div class="t-item card">
+        <div class="t-h">
+          <div class="t-role">Jr. Detectvive Intern — <span style="color:#cbd5e1">Unqiue Infosolution</span></div>
+          <div class="t-time">July 2025 – August 2025</div>
+        </div>
+        <ul style="margin:0;padding-left:18px;color:#cbd5e1">
+          <li>Supported investigation projects and contributed to cybersecurity tools during internship at Unique InfoSolution.</li>
+          <li>Assisted in cyber investigation projects and case studies.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+   <!-- ===== EDUCATION ===== -->
+<section id="education" class="container">
+  <h2 class="sec-title">Education</h2>
+  <div class="grid cols-2">
+    <div class="card">
+      <strong>Secondary School Certificate (SSC) – 10th Pass</strong>
+      <div class="t-time">2024–2025 Maharashtra State Board of Secondary & Higher Secondary Education</div>
+      <p>Completed 10th Standard – Maharashtra State Board</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CERTIFICATIONS ===== -->
+<section id="certifications" class="container">
+  <h2 class="sec-title">Certifications</h2>
+  <div class="grid-auto-fit">
+    <div class="card">Techonquer – OSINT Analyst</div>
+    <div class="card">EC-Council – SQL Injection</div>
+    <div class="card">Skill India – Cyber Security</div>
+    <div class="card">Itronix – Ethical Hacking</div>
+    <div class="card">EC-Council – Dark Web & Crypto</div>
+    <div class="card">G20 India – Cyber Hygiene</div>
+    <div class="card">InfoSec – Cyber Ethics</div>
+    <div class="card">Brilliance – White Hat Hacker Upskill</div>
+  </div>
+</section>
+
+
+<!-- ===== CONTACT ===== -->
+<div style="display:flex;justify-content:center;">
+  <div class="card" style="max-width:500px;width:100%;">
+    <form action="https://formspree.io/f/xgvlojnk" method="POST">
+      <input type="text" name="name" placeholder="Your Name" required />
+      <input type="email" name="email" placeholder="Your Email" required />
+      <textarea id="msg" name="message" rows="5" placeholder="Your message" required></textarea>
+      <button class="btn primary" type="submit">Send Message</button>
+    </form>
+  </div>
+</div>
+
+
+   
+
+  <footer class="container">
+    © <span id="year"></span> <!-- EDIT --> Your Name. Built with ❤️.
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
